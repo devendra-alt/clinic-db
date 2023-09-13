@@ -49,18 +49,15 @@ CREATE TABLE invoice_items(
   total_price DECIMAL(5,2),
   invoice_id INT, FOREIGN KEY(invoice_id) REFERENCES invoices(id),
   treatments_id INT FOREIGN KEY(treatments_id) REFERENCES treatments(id),
-
-
 );
 
 
--- Create indexes on foreign key columns
+--* indexes on foreign key columns
+
 CREATE INDEX idx_mh_treat_medhist_id ON treatments_history (medical_history_id);
 CREATE INDEX idx_mh_treat_treat_id ON treatments_history (treatment_id);
-
 CREATE INDEX idx_inv_items_inv_id ON invoice_items (invoice_id);
 CREATE INDEX idx_inv_items_treat_id ON invoice_items (treatment_id);
-
 CREATE INDEX idx_invoices_medhist_id ON invoices (medical_history_id);
-
 CREATE INDEX idx_medhist_patient_id ON medical_histories (patient_id);
+
