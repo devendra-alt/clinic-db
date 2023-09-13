@@ -41,3 +41,14 @@ CREATE TABLE invoices(
 
 
 );
+
+CREATE TABLE invoice_items(
+  id SERIAL PRIMARY KEY,
+  units_price DECIMAL(5,2),
+  quantity INT,
+  total_price DECIMAL(5,2),
+  invoice_id INT, FOREIGN KEY(invoice_id) REFERENCES invoices(id),
+  treatments_id INT FOREIGN KEY(treatments_id) REFERENCES treatments(id),
+
+
+);
