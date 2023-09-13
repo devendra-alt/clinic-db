@@ -1,3 +1,21 @@
+CREATE TABLE patients (
+id SERIAL PRIMARY KEY,
+name VARCHAR(50),
+date_of_birth DATE
+);
+
+CREATE TABLE medical_histories (
+  id SERIAL PRIMARY KEY,
+  admitted_at TIMESTAMP,
+  status VARCHAR(50)
+);
+
+CREATE TABLE treatments(
+  id SERIAL PRIMARY KEY,
+  type VARCHAR(50),
+  name VARCHAR(50)
+);
+
 CREATE TABLE treatments_history(
   medical_history_id INT,
   treatments_id INT,
