@@ -7,7 +7,9 @@ date_of_birth DATE
 CREATE TABLE medical_histories (
   id SERIAL PRIMARY KEY,
   admitted_at TIMESTAMP,
-  status VARCHAR(50)
+  status VARCHAR(50),
+  patient_id INT,
+  FOREIGN KEY(patient_id) REFERENCES patients(id)
 );
 
 CREATE TABLE treatments(
@@ -18,28 +20,18 @@ CREATE TABLE treatments(
 
 CREATE TABLE treatments_history(
   medical_history_id INT,
-  treatments_id INT,
-  PRIMARY KEY (medical_history_id,treatments_id),
+  treatment_id INT,
+  PRIMARY KEY (medical_history_id,treatment_id),
   FOREIGN KEY(medical_history_id) REFERENCES medical_histories(id),
-  FOREIGN KEY(treatments_id) REFERENCES treatments(id)
-);
-
-CREATE TABLE treatments_history(
-  medical_history_id INT,
-  treatments_id INT,
-  PRIMARY KEY (medical_history_id,treatments_id),
-  FOREIGN KEY(medical_history_id) REFERENCES medical_histories(id),
-  FOREIGN KEY(treatments_id) REFERENCES treatments(id)
+  FOREIGN KEY(treatment_id) REFERENCES treatments(id)
 );
 
 CREATE TABLE invoices(
   id SERIAL PRIMARY KEY,
-  total_amounts DECIMAL(5,2)
+  total_amounts DECIMAL(5,2),
   generated_at TIMESTAMP,
   payed_at TIMESTAMP,
-  medical_history_id INT FOREIGN KEY(medical_history_id) REFERENCES medical_histories(id),
-
-
+  medical_history_id INT, FOREIGN KEY(medical_history_id) REFERENCES medical_histories(id)
 );
 
 CREATE TABLE invoice_items(
@@ -48,7 +40,7 @@ CREATE TABLE invoice_items(
   quantity INT,
   total_price DECIMAL(5,2),
   invoice_id INT, FOREIGN KEY(invoice_id) REFERENCES invoices(id),
-  treatments_id INT FOREIGN KEY(treatments_id) REFERENCES treatments(id),
+  treatment_id INT, FOREIGN KEY(treatment_id) REFERENCES treatments(id)
 );
 
 
